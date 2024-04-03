@@ -10,7 +10,7 @@
 
   "main": "index.js",
 
-  "start": "node App.js",
+  "start": "nodemon App.js",
 
   "scripts": {
 
