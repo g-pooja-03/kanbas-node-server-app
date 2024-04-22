@@ -44,14 +44,9 @@ function QuizRoutes(app) {
     });
 
     app.get("/api/quizzes/:qid/details", (req, res) => {
-        console.log("trying to retrieve quiz details")
         const { qid } = req.params;
         const quiz = db.quizzes.find((q) => q._id === qid);
-        if (quiz) {
-            res.send(quiz);
-        } else {
-            res.sendStatus(404); // Quiz not found
-        }
+        res.send(quiz);
     });
 }
 
