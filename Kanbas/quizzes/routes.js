@@ -4,26 +4,19 @@ function QuizRoutes(app) {
     app.put("/api/quizzes/:qid", (req, res) => {
         const { qid } = req.params;
         const quizIndex = db.quizzes.findIndex((q) => q._id === qid);
-        if (quizIndex !== -1) {
-            db.quizzes[quizIndex] = {
-                ...db.quizzes[quizIndex],
-                ...req.body
-            };
-            res.sendStatus(204);
-        } else {
-            res.sendStatus(404); // Quiz not found
-        }
+        db.quizzes[quizIndex] = {
+            ...db.quizzes[quizIndex],
+            ...req.body
+        };
+        res.sendStatus(204);
     });
 
     app.delete("/api/quizzes/:qid", (req, res) => {
         const { qid } = req.params;
         const quizIndex = db.quizzes.findIndex((q) => q._id === qid);
-        if (quizIndex !== -1) {
-            db.quizzes.splice(quizIndex, 1);
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(404); // Quiz not found
-        }
+        db.quizzes.splice(quizIndex, 1);
+        res.sendStatus(200);
+
     });
 
     app.get("/api/courses/:cid/quizzes", (req, res) => {
