@@ -3,6 +3,7 @@ import db from "../Database/index.js";
 function QuestionRoutes(app) {
     app.put("/api/questions/:qid", (req, res) => {
         const { qid } = req.params;
+        console.log('Update request received for quiz:', qid);
         const questionIndex = db.questions.findIndex((q) => q._id === qid);
         db.questions[questionIndex] = {
             ...db.questions[questionIndex],
@@ -21,15 +22,15 @@ function QuestionRoutes(app) {
     app.get("/api/quizzes/:qid/questions", (req, res) => {
         const { qid } = req.params;
         const questions = db.questions.filter((q) => q.quiz === qid);
+        console.log(questions);
         res.send(questions);
-        console.log('Question List:', questions);
     });
 
     app.post("/api/quizzes/:qid/questions", (req, res) => {
         const { qid } = req.params;
         const newQuestion = {
             ...req.body,
-            course: qid,
+            quiz: qid,
             _id: new Date().getTime().toString(),
         };
         db.questions.push(newQuestion);
